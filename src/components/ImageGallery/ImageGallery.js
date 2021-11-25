@@ -15,9 +15,9 @@ export default function ImageGallery({ searchbar }) {
   const [modaleUrl, setModaleUrl] = useState("");
   const [modaleAlt, setModaleAlt] = useState("");
 
-  useEffect(() => {
-    setData([]);
-  }, [searchbar]);
+  // useEffect(() => {
+  //   setData([]);
+  // }, [searchbar]);
 
   useEffect(() => {
     setStatus("pending");
@@ -29,7 +29,7 @@ export default function ImageGallery({ searchbar }) {
     imageApi
       .fatchImage(searchbar, page)
       .then((images) => {
-        if (images.total === 0) {
+        if (images.hits.length === 0) {
           setError("No any picture");
           setStatus("rejected");
           return;
@@ -39,9 +39,6 @@ export default function ImageGallery({ searchbar }) {
         }
       })
       .then(() => {
-        if (page === 1) {
-          return;
-        }
         window.scrollTo({
           top: document.documentElement.scrollHeight,
           behavior: "smooth",
@@ -52,6 +49,7 @@ export default function ImageGallery({ searchbar }) {
 
   const loadMore = () => {
     setPage((prevState) => prevState + 1);
+    setStatus("pending");
   };
 
   const modalOpen = (modaleUrl, modaleAlt) => {
