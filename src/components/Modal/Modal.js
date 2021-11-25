@@ -1,4 +1,5 @@
 import s from "./Modal.module.css";
+import PropTypes from "prop-types";
 export default function Modal({ largeImageURL, alt, onClick }) {
   return (
     <div className={s.Overlay} onClick={onClick}>
@@ -8,3 +9,6 @@ export default function Modal({ largeImageURL, alt, onClick }) {
     </div>
   );
 }
+Modal.propTypes = {
+  largeImageURL: PropTypes.string.isRequired,
+};
